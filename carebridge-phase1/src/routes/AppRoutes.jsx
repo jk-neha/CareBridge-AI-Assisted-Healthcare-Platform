@@ -324,6 +324,11 @@ import ComingSoon from "../pages/ComingSoon";
 // Auth
 import Login from "../pages/auth/Login";
 
+//regsiter
+import Register from "../pages/Register";
+import AdminVerify from "../pages/AdminVerify";
+
+
 // ============================================================
 // PATIENT PAGES
 // ============================================================
@@ -410,12 +415,13 @@ export default function AppRoutes() {
         element={<Login />}
       />
 
-      <Route
-        path="/register"
-        element={<RegisterPlaceholder />}
-      />
+     
 
-
+        //Admin verification 
+//Registration
+<Route path="/register/:role" element={<Register />} />
+<Route path="/register" element={<Register />} />
+<Route path="/admin-verify" element={<AdminVerify />} />
       {/* ======================================================
           PATIENT ROUTES
       ====================================================== */}

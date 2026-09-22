@@ -15,7 +15,7 @@ import {
 } from "lucide-react";
 
 const LOGIN_PATH = "/login";
-
+const REGISTER_PATH = "/register";
 const AUTHOR_NAME = "Neha Vardhini J K";
 const GITHUB_URL = "https://github.com/jk-neha";
 const LINKEDIN_URL = "https://www.linkedin.com/in/nehavardhinijk/";
@@ -32,8 +32,8 @@ const DEMO_ACCOUNTS = [
       "Find Doctors and Appointments",
       "Prescriptions and Medicine Orders",
     ],
-    username: "demopatient1",
-    password: "demopatient1",
+    username: "patientdemo",
+    password: "patientdemo",
   },
   {
     role: "doctor",
@@ -46,8 +46,8 @@ const DEMO_ACCOUNTS = [
       "Medical Records",
       "Prescriptions",
     ],
-    username: "demodoctor2",
-    password: "demodoctor2",
+    username: "doctordemo",
+    password: "doctordemo",
   },
   {
     role: "pharmacy",
@@ -60,8 +60,8 @@ const DEMO_ACCOUNTS = [
       "Price and Stock Management",
       "Patient Orders",
     ],
-    username: "demopharmacy02",
-    password: "demopharmacy02",
+    username: "pharmacydemo",
+    password: "pharmacydemo",
   },
 ];
 
@@ -294,9 +294,16 @@ function DemoLoginCard() {
         </div>
 
         <p className="mt-4 text-center text-xs leading-5 text-slate-500">
-          Demo accounts use sample data only. Do not enter real
-          medical information.
-        </p>
+  Demo accounts use sample data only. Do not enter real
+  medical information.
+</p>
+
+{(activeRole === "doctor" || activeRole === "pharmacy") && (
+  <p className="mt-3 rounded-lg border border-amber-500/20 bg-amber-500/10 px-3 py-2 text-center text-xs leading-5 text-amber-300">
+    This demo account is pre-verified. New doctor/pharmacy sign-ups
+    need admin approval before they can log in.
+  </p>
+)}
       </div>
     </div>
   );
@@ -359,6 +366,13 @@ export default function Landing() {
             >
               Log in
             </Link>
+
+            <Link
+  to={REGISTER_PATH}
+  className="rounded-lg bg-slate-900 px-3.5 py-2 text-sm font-semibold text-white transition hover:bg-slate-800"
+>
+  Register
+</Link>
           </nav>
         </div>
       </header>
@@ -404,7 +418,7 @@ export default function Landing() {
               {/* CTA buttons */}
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
 
-                <Link
+                {/* <Link
                   to={LOGIN_PATH}
                   className="group inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-5 py-3.5 text-sm font-semibold text-white shadow-lg shadow-blue-600/20 transition hover:bg-blue-500"
                 >
@@ -414,7 +428,18 @@ export default function Landing() {
                     size={17}
                     className="transition-transform group-hover:translate-x-0.5"
                   />
-                </Link>
+                </Link> */}
+                <Link
+  to={REGISTER_PATH}
+  className="group inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-5 py-3.5 text-sm font-semibold text-white shadow-lg shadow-blue-600/20 transition hover:bg-blue-500"
+>
+  Get started
+
+  <ArrowRight
+    size={17}
+    className="transition-transform group-hover:translate-x-0.5"
+  />
+</Link>
 
                 <a
                   href="#demo"
@@ -891,6 +916,33 @@ export default function Landing() {
               </Link>
 
             </div> */}
+            <div className="flex flex-wrap gap-x-5 gap-y-3 text-sm font-medium text-slate-500">
+  <a
+    href={GITHUB_URL}
+    target="_blank"
+    rel="noreferrer"
+    className="transition hover:text-slate-900"
+  >
+    GitHub
+  </a>
+
+  <a
+    href={LINKEDIN_URL}
+    target="_blank"
+    rel="noreferrer"
+    className="transition hover:text-slate-900"
+  >
+    LinkedIn
+  </a>
+
+  <Link to={REGISTER_PATH} className="transition hover:text-slate-900">
+    Register
+  </Link>
+
+  <Link to={LOGIN_PATH} className="transition hover:text-slate-900">
+    Log in
+  </Link>
+</div>
 
           </div>
 
