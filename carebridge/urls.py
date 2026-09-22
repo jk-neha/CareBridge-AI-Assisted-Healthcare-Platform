@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path
 from rest_framework_simplejwt.views import TokenObtainPairView,TokenRefreshView
 
-from account.views import PatientRegistrationView,DoctorRegistrationView,PharmacyRegistrationView,MeView,PatientOnlyView,DoctorDashboardView,PharmacyOnlyView,DoctorListView,DoctorDetailView,AppointmentCreateView,MyAppointmentsView,DoctorAppointmentsView,AppointmentStatusView,PharmacyMedicineCreateView,MedicineListView,MedicineOrderCreateView,PharmacyOrdersView,PharmacyOrderListView,PharmacyOrderStatusUpdateView,MyMedicineOrdersView,MedicalRecordCreateView,PatientMedicalRecordsView,PatientDashboardView,PharmacyDashboardView,AppointmentCancelView,AppointmentCompleteView,MyMedicalHistoryView,MyPrescriptionsView,PrescriptionCreateView,MyPrescriptionsView,AdminPendingDoctorsView,AdminDoctorVerifyView,AdminPendingPharmaciesView,AdminPharmacyVerifyView,VerifyDoctorView,PendingPharmacyView,VerifyPharmacyView,AdminDashboardView,SymptomCheckerView,DoctorMedicalRecordsView,DoctorPatientsView
+from account.views import PatientRegistrationView,DoctorRegistrationView,PharmacyRegistrationView,MeView,PatientOnlyView,DoctorDashboardView,PharmacyOnlyView,DoctorListView,DoctorDetailView,AppointmentCreateView,MyAppointmentsView,DoctorAppointmentsView,AppointmentStatusView,PharmacyMedicineCreateView,MedicineListView,MedicineOrderCreateView,PharmacyOrdersView,PharmacyOrderListView,PharmacyOrderStatusUpdateView,MyMedicineOrdersView,MedicalRecordCreateView,PatientMedicalRecordsView,PatientDashboardView,PharmacyDashboardView,AppointmentCancelView,AppointmentCompleteView,MyMedicalHistoryView,MyPrescriptionsView,PrescriptionCreateView,MyPrescriptionsView,AdminPendingDoctorsView,AdminDoctorVerifyView,AdminPendingPharmaciesView,AdminPharmacyVerifyView,VerifyDoctorView,PendingPharmacyView,VerifyPharmacyView,AdminDashboardView,SymptomCheckerView,DoctorMedicalRecordsView,DoctorPatientsView,PharmacyMedicineDeleteView
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -186,6 +186,11 @@ path(
     "api/account/pharmacy/medicines/",
     PharmacyMedicineCreateView.as_view(),
     name="pharmacy-medicine-create"
+),
+    path(
+    "api/account/pharmacy/medicines/<int:medicine_id>/",
+    PharmacyMedicineDeleteView.as_view(),
+    name="pharmacy-medicine-delete"
 ),
     
     path(

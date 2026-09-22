@@ -704,6 +704,37 @@ class PharmacyMedicineCreateView(APIView):
             },
             status=status.HTTP_201_CREATED
         )
+
+class PharmacyMedicineDeleteView(APIView):
+
+    permission_classes = [IsAuthenticated, IsPharmacy]
+
+    def delete(self, request, medicine_id):
+
+        pharmacy = request.user.pharmacy_profile
+
+        try:
+            medicine = Medicine.objects.get(
+                id=medicine_id,
+                pharmacy=pharmacy
+            )
+        except Medicine.DoesNotExist:
+            return Response(
+                {
+                    "message": "Medicine not found or you don't have permission to delete it."
+                },
+                status=status.HTTP_404_NOT_FOUND
+            )
+
+        name = medicine.name
+        medicine.delete()
+
+        return Response(
+            {
+                "message": f"{name} deleted successfully."
+            },
+            status=status.HTTP_200_OK
+        )
         
 ## MEDICINE LIST
 class MedicineListView(APIView):
