@@ -1,11 +1,7 @@
 <div align="center">
-
-# 🩺 CareBridge
-
-### AI-Assisted Healthcare Platform
-
-**Connecting Patients, Doctors, and Pharmacies in one healthcare workflow.**
-
+   
+[![Typing SVG](https://readme-typing-svg.herokuapp.com?font=Fira+Code&weight=900&pause=1000&color=4283F7&center=true&width=550&lines=%F0%9F%A9%BACareBridge+AI-Assisted+Healthcare+Platform;Connecting+Patients%F0%9F%A4%92%2C+Doctors%F0%9F%91%A9%E2%80%8D%E2%9A%95%EF%B8%8F+and+Pharmacies%F0%9F%8F%A5)](https://git.io/typing-svg)
+<img src="carebridge-phase1/System-results/Carebridge-template.png" width="100%" alt="Campus Placement Intelligence System"/>
 <br/>
 
 ![React](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge\&logo=react\&logoColor=black)
@@ -18,16 +14,10 @@
 ![JWT](https://img.shields.io/badge/JWT-Authentication-black?style=for-the-badge\&logo=jsonwebtokens)
 ![Vercel](https://img.shields.io/badge/Frontend-Vercel-black?style=for-the-badge\&logo=vercel)
 
-<br/><br/>
-
+**[🌐 Live Project](https://care-bridge-ai-assisted-healthcare.vercel.app/)** **[💻 Render Backend](https://carebridge-ai-assisted-healthcare.onrender.com/api/account/login/)** 
 > **A full-stack healthcare platform that connects patients, doctors, and pharmacies through appointments, medical records, prescriptions, medicine inventory, and medicine orders.**
-
-<br/>
-
 ### 
-
-**[🌐 Live Project](https://care-bridge-ai-assisted-healthcare.vercel.app/)** **[💻 GitHub Repository](https://github.com/jk-neha/CareBridge-AI-Assisted-Healthcare-Platform)**
-
+<br/>
 </div>
 
 ---
@@ -497,7 +487,7 @@ The backend is organized around the major healthcare workflows.
 
 ---
 
-# 🖼️ Results Gallery
+# 📁 Results Gallery
 
 The application provides dedicated interfaces for all three roles.
 
@@ -507,7 +497,7 @@ The CareBridge landing page introduces the connected healthcare workflow and pro
 
 <p align="center">
 
-<img src="carebridge-phase1/src/assets/hero.png" width="850" alt="CareBridge"/>
+<img src="carebridge-phase1/System-results/landing-page.png" width="850" alt="CareBridge"/>
 
 </p>
 
@@ -519,28 +509,63 @@ The CareBridge landing page introduces the connected healthcare workflow and pro
 
 Patients can view their healthcare activity from a dedicated dashboard.
 
+<p align="center">
+
+<img src="carebridge-phase1/System-results/patient-dashboard.png" width="850" alt="CareBridge"/>
+
+</p>
+
+### Ai Symptoms Checker
+<p align="center">
+
+   <img src="carebridge-phase1/System-results/symptom-checker.png" width="850" alt="CareBridge"/>
+
+  </p>
+  
 ### Doctors & Appointments
 
 Patients can:
 
-* Browse doctors
-* View doctor details
-* Select appointment slots
-* Submit appointment requests
-* Track appointment status
+* Browse doctors and View doctor details
+  <p align="center">
+
+   <img src="carebridge-phase1/System-results/patient-doctors.png" width="850" alt="CareBridge"/>
+
+   </p>
+
+* Select appointment slots and Track appointment status
+  <p align="center">
+
+   <img src="carebridge-phase1/System-results/patient-appointments.png" width="850" alt="CareBridge"/>
+
+  </p>
+
 
 ### Medical Records
 
 Patients can view records created by doctors after completed consultations.
+<p align="center">
 
+   <img src="carebridge-phase1/System-results/patient-medical-records.png" width="850" alt="CareBridge"/>
+
+  </p>
 ### Prescriptions
 
 Patients can view prescribed medicines along with dosage, frequency and duration.
+<p align="center">
 
+   <img src="carebridge-phase1/System-results/patient-prescriptions.png" width="850" alt="CareBridge"/>
+
+  </p>
 ### Medicine Orders
 
 Patients can browse available medicines and place orders through pharmacy inventory.
+<p align="center">
 
+   <img src="carebridge-phase1/System-results/patient-orders.png" width="850" alt="CareBridge"/>
+
+  </p>
+  
 ---
 
 ## 👨‍⚕️ Doctor Portal
@@ -548,7 +573,11 @@ Patients can browse available medicines and place orders through pharmacy invent
 ### Doctor Dashboard
 
 Doctors receive a dedicated workspace for managing their healthcare workflow.
+<p align="center">
 
+   <img src="carebridge-phase1/System-results/doctor-dashboard.png" width="850" alt="CareBridge"/>
+
+  </p>
 ### Appointments
 
 Doctors can:
@@ -562,14 +591,19 @@ Completed
 ```
 
 They can also reject appointments where appropriate.
+<p align="center">
 
+   <img src="carebridge-phase1/System-results/doctor-appointments.png" width="850" alt="CareBridge"/>
+
+  </p>
 ### Patients
 
 Doctors can view patients associated with their appointments.
+<p align="center">
 
-### Medical Records
+   <img src="carebridge-phase1/System-results/doctor-patients.png" width="850" alt="CareBridge"/>
 
-Doctors can create medical records linked to completed appointments.
+  </p>
 
 ### Prescriptions
 
@@ -578,7 +612,12 @@ Doctors can select medicines and specify:
 * Dosage
 * Frequency
 * Duration
+<p align="center">
 
+   <img src="carebridge-phase1/System-results/create-prescription.png" width="850" alt="CareBridge"/>
+
+  </p>
+  
 ---
 
 ## 🏪 Pharmacy Portal
@@ -586,7 +625,11 @@ Doctors can select medicines and specify:
 ### Pharmacy Dashboard
 
 Pharmacies can monitor their medicine inventory and patient orders.
+<p align="center">
 
+   <img src="carebridge-phase1/System-results/pharmacy-dashboard.png" width="850" alt="CareBridge"/>
+
+  </p>
 ### Medicine Management
 
 Pharmacies can:
@@ -596,6 +639,11 @@ Pharmacies can:
 * Manage stock
 * Control availability
 * Delete their own medicines
+<p align="center">
+
+   <img src="carebridge-phase1/System-results/add-medicine.png" width="850" alt="CareBridge"/>
+
+  </p>
 
 ### Orders
 
@@ -610,7 +658,19 @@ Pharmacy Reviews
         ↓
      CONFIRMED
 ```
+<p align="center">
 
+   <img src="carebridge-phase1/System-results/patient-orders.png" width="850" alt="CareBridge"/>
+
+  </p>
+
+  <p align="center">
+
+   <img src="carebridge-phase1/System-results/pharmacy-orders.png" width="850" alt="CareBridge"/>
+
+  </p>
+
+  
 ---
 
 # 🧪 End-to-End Test Workflow
