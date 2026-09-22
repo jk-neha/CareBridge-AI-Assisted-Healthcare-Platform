@@ -20,14 +20,20 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-pf)uav=i3s+hp4o%o)qquyo10i+(78k#70#fhb2hl2(34eq@g#'
+# SECRET_KEY = 'django-insecure-pf)uav=i3s+hp4o%o)qquyo10i+(78k#70#fhb2hl2(34eq@g#'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# # SECURITY WARNING: don't run with debug turned on in production!
+# DEBUG = True
 
-ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = []
 
 
+
+SECRET_KEY = os.getenv("SECRET_KEY", "django-insecure-pf)uav=i3s+hp4o%o)qquyo10i+(78k#70#fhb2hl2(34eq@g#")
+
+DEBUG = os.getenv("DEBUG", "True") == "True"
+
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "").split(",") if os.getenv("ALLOWED_HOSTS") else []
 # Application definition
 
 INSTALLED_APPS = [
@@ -40,9 +46,14 @@ INSTALLED_APPS = [
     "rest_framework",
     'account',
 ]
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173",
-]
+# CORS_ALLOWED_ORIGINS = [
+#     "http://localhost:5173",
+# ]
+CORS_ALLOWED_ORIGINS = os.getenv(
+    "CORS_ALLOWED_ORIGINS", "http://localhost:5173"
+).split(",")
+
+CSRF_TRUSTED_ORIGINS = os.getenv("CSRF_TRUSTED_ORIGINS", "").split(",") if os.getenv("CSRF_TRUSTED_ORIGINS") else []
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework_simplejwt.authentication.JWTAuthentication",
@@ -52,6 +63,7 @@ REST_FRAMEWORK = {
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -83,17 +95,25 @@ WSGI_APPLICATION = 'carebridge.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'carebridge_db',
-        'USER':'postgres',
-        'PASSWORD':'LIAKAAHE',
-        'HOST':'localhost',
-        'PORT':'5432',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'carebridge_db',
+#         'USER':'postgres',
+#         'PASSWORD':'LIAKAAHE',
+#         'HOST':'localhost',
+#         'PORT':'5432',
+#     }
+# }
+import dj_database_url
 
+DATABASES = {
+    'default': dj_database_url.config(
+        default="postgresql://postgres:LIAKAAHE@localhost:5432/carebridge_db",
+        conn_max_age=600,
+        ssl_require=os.getenv("DATABASE_URL") is not None,
+    )
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
@@ -129,8 +149,15 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
-STATIC_URL = 'static/'
+# STATIC_URL = 'static/'
 
+STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+STORAGES = {
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
 AUTH_USER_MODEL="account.User"
 
 from dotenv import load_dotenv
