@@ -1,0 +1,43 @@
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    @apply bg-canvas text-ink font-sans;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display text-ink;
+  }
+
+  :focus-visible {
+    outline: 2px solid theme("colors.primary.500");
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  ::selection {
+    background: theme("colors.primary.100");
+  }
+}
+
+@layer utilities {
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background: theme("colors.line.strong");
+    border-radius: 999px;
+  }
+}
