@@ -597,6 +597,41 @@ class AppointmentCompleteView(APIView):
 ##MEDICINES
 
 
+# class PharmacyMedicineCreateView(APIView):
+
+#     permission_classes = [IsAuthenticated, IsPharmacy]
+
+#     def post(self, request):
+
+#         serializer = MedicineSerializer(
+#             data=request.data
+#         )
+
+#         if serializer.is_valid():
+
+#             pharmacy = request.user.pharmacy_profile
+
+#             medicine = serializer.save(
+#                 pharmacy=pharmacy
+#             )
+
+#             return Response(
+#                 {
+#                     "message": "Medicine added successfully.",
+#                     "medicine_id": medicine.id,
+#                     "name": medicine.name,
+#                     "price": medicine.price,
+#                     "stock": medicine.stock,
+#                     "is_available": medicine.is_available
+#                 },
+#                 status=status.HTTP_201_CREATED
+#             )
+
+#         return Response(
+#             serializer.errors,
+#             status=status.HTTP_400_BAD_REQUEST
+#         )
+        
 class PharmacyMedicineCreateView(APIView):
 
     permission_classes = [IsAuthenticated, IsPharmacy]
@@ -607,29 +642,67 @@ class PharmacyMedicineCreateView(APIView):
             data=request.data
         )
 
-        if serializer.is_valid():
+        if not serializer.is_valid():
+            return Response(
+                serializer.errors,
+                status=status.HTTP_400_BAD_REQUEST
+            )
 
-            pharmacy = request.user.pharmacy_profile
+        pharmacy = request.user.pharmacy_profile
 
-            medicine = serializer.save(
-                pharmacy=pharmacy
+        name = serializer.validated_data["name"]
+        new_price = serializer.validated_data["price"]
+        added_stock = serializer.validated_data.get("stock", 0)
+        description = serializer.validated_data.get("description", "")
+
+        # If this pharmacy already lists a medicine with this exact
+        # name, top up its stock and update the price instead of
+        # creating a duplicate listing.
+        existing = Medicine.objects.filter(
+            pharmacy=pharmacy,
+            name__iexact=name
+        ).first()
+
+        if existing:
+            existing.stock += added_stock
+            existing.price = new_price
+
+            if description:
+                existing.description = description
+
+            if existing.stock > 0:
+                existing.is_available = True
+
+            existing.save(
+                update_fields=["stock", "price", "description", "is_available"]
             )
 
             return Response(
                 {
-                    "message": "Medicine added successfully.",
-                    "medicine_id": medicine.id,
-                    "name": medicine.name,
-                    "price": medicine.price,
-                    "stock": medicine.stock,
-                    "is_available": medicine.is_available
+                    "message": "Existing medicine updated — stock and price refreshed.",
+                    "medicine_id": existing.id,
+                    "name": existing.name,
+                    "price": existing.price,
+                    "stock": existing.stock,
+                    "is_available": existing.is_available,
+                    "updated": True
                 },
-                status=status.HTTP_201_CREATED
+                status=status.HTTP_200_OK
             )
 
+        medicine = serializer.save(pharmacy=pharmacy)
+
         return Response(
-            serializer.errors,
-            status=status.HTTP_400_BAD_REQUEST
+            {
+                "message": "Medicine added successfully.",
+                "medicine_id": medicine.id,
+                "name": medicine.name,
+                "price": medicine.price,
+                "stock": medicine.stock,
+                "is_available": medicine.is_available,
+                "updated": False
+            },
+            status=status.HTTP_201_CREATED
         )
         
 ## MEDICINE LIST
