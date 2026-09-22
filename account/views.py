@@ -117,6 +117,24 @@ class PharmacyRegistrationView(APIView):
 ##AUTHENTICATION/PROFILE (GET INFORMATION)
 
 #Information of Authenticated Profile
+# class MeView(APIView):
+
+#     permission_classes = [IsAuthenticated]
+
+#     def get(self, request):
+
+#         user = request.user
+
+#         return Response(
+#             {
+#                 "id": user.id,
+#                 "username": user.username,
+#                 "email": user.email,
+#                 "phone_number": user.phone_number,
+#                 "role": user.role,
+#             },
+#             status=status.HTTP_200_OK
+#         )
 class MeView(APIView):
 
     permission_classes = [IsAuthenticated]
@@ -125,19 +143,92 @@ class MeView(APIView):
 
         user = request.user
 
-        return Response(
-            {
-                "id": user.id,
-                "username": user.username,
-                "email": user.email,
-                "phone_number": user.phone_number,
-                "role": user.role,
-            },
-            status=status.HTTP_200_OK
-        )
-        
-        
+        data = {
+            "id": user.id,
+            "username": user.username,
+            "email": user.email,
+            "phone_number": user.phone_number,
+            "role": user.role,
+        }
 
+        # Attach role-specific profile fields so the frontend can
+        # pre-fill an edit form from this single endpoint.
+        if user.role == User.Role.PATIENT and hasattr(user, "patient_profile"):
+            profile = user.patient_profile
+            data["profile"] = {
+                "date_of_birth": profile.date_of_birth,
+                "gender": profile.gender,
+                "medical_history": profile.medical_history,
+                "address": profile.address,
+            }
+
+        elif user.role == User.Role.DOCTOR and hasattr(user, "doctor_profile"):
+            profile = user.doctor_profile
+            data["profile"] = {
+                "specialization": profile.specialization,
+                "qualification": profile.qualification,
+                "license_number": profile.license_number,
+                "experience_years": profile.experience_years,
+                "consultation_fee": profile.consultation_fee,
+                "is_verified": profile.is_verified,
+            }
+
+        elif user.role == User.Role.PHARMACY and hasattr(user, "pharmacy_profile"):
+            profile = user.pharmacy_profile
+            data["profile"] = {
+                "pharmacy_name": profile.pharmacy_name,
+                "license_number": profile.license_number,
+                "address": profile.address,
+                "is_verified": profile.is_verified,
+            }
+
+        return Response(data, status=status.HTTP_200_OK)
+
+    def patch(self, request):
+
+        user = request.user
+
+        # email, username, password, and role are intentionally never
+        # read from request.data anywhere below — there is no code
+        # path in this method that can change them.
+
+        if "phone_number" in request.data:
+            user.phone_number = request.data["phone_number"]
+            user.save(update_fields=["phone_number"])
+
+        if user.role == User.Role.PATIENT and hasattr(user, "patient_profile"):
+            profile = user.patient_profile
+            editable_fields = [
+                "date_of_birth", "gender", "medical_history", "address"
+            ]
+            for field in editable_fields:
+                if field in request.data:
+                    setattr(profile, field, request.data[field])
+            profile.save()
+
+        elif user.role == User.Role.DOCTOR and hasattr(user, "doctor_profile"):
+            profile = user.doctor_profile
+            # license_number is deliberately excluded — treated like
+            # an identity field, same as email.
+            editable_fields = [
+                "specialization", "qualification",
+                "experience_years", "consultation_fee"
+            ]
+            for field in editable_fields:
+                if field in request.data:
+                    setattr(profile, field, request.data[field])
+            profile.save()
+
+        elif user.role == User.Role.PHARMACY and hasattr(user, "pharmacy_profile"):
+            profile = user.pharmacy_profile
+            # license_number excluded, same reasoning as above.
+            editable_fields = ["pharmacy_name", "address"]
+            for field in editable_fields:
+                if field in request.data:
+                    setattr(profile, field, request.data[field])
+            profile.save()
+
+        return self.get(request)
 #---------------------------------------------------
 ##DOCTOR/PATIENT DISCOVERY
         

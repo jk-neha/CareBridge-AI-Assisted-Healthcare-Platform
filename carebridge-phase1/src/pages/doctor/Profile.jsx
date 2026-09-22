@@ -16,6 +16,9 @@ import {
   User,
 } from "lucide-react";
 import api, { getErrorMessage } from "../../services/api";
+import { Link } from "react-router-dom";
+
+
 
 function InfoRow({ icon: Icon, label, value }) {
   return (
@@ -122,6 +125,13 @@ export default function Profile() {
         <p className="mt-2 text-slate-500">
           Your professional details as shown on CareBridge.
         </p>
+      <Link
+  to="edit"
+  className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white"
+>
+  Edit profile
+</Link>
+
       </div>
 
       {/* Identity card */}

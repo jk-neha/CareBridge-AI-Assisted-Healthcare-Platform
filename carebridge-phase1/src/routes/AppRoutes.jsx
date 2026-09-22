@@ -328,7 +328,8 @@ import Login from "../pages/auth/Login";
 import Register from "../pages/Register";
 import AdminVerify from "../pages/AdminVerify";
 
-
+//update profile
+import EditProfile from "../pages/EditProfile";
 // ============================================================
 // PATIENT PAGES
 // ============================================================
@@ -438,6 +439,7 @@ export default function AppRoutes() {
           path="/patient"
           element={<PatientLayout />}
         >
+          <Route path="profile/edit" element={<EditProfile />} />
 
           {/* Dashboard */}
           <Route
@@ -527,6 +529,7 @@ export default function AppRoutes() {
 
       <Route element={<ProtectedRoute allowedRoles={["DOCTOR"]} />}>
         <Route path="/doctor" element={<DoctorLayout />}>
+        <Route path="profile/edit" element={<EditProfile />} />
           <Route path="dashboard" element={<DoctorDashboard />} />
           <Route path="appointments" element={<DoctorAppointments />} />
           <Route path="patients" element={<DoctorPatients />} />
@@ -546,6 +549,7 @@ export default function AppRoutes() {
 
       <Route element={<ProtectedRoute allowedRoles={["PHARMACY"]} />}>
         <Route path="/pharmacy" element={<PharmacyLayout />}>
+          <Route path="profile/edit" element={<EditProfile />} />
           <Route path="dashboard" element={<PharmacyDashboard />} />
           <Route path="medicines" element={<PharmacyMedicines />} />
           <Route path="orders" element={<PharmacyOrders />} />

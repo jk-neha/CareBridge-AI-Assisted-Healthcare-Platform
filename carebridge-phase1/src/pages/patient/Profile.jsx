@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import api, { getErrorMessage } from "../../services/api";
+import { Link } from "react-router-dom";
 
 export default function Profile() {
   const [user, setUser] = useState(null);
@@ -63,6 +64,13 @@ export default function Profile() {
         <p className="mt-2 text-slate-500">
           View your CareBridge account information.
         </p>
+
+        <Link
+  to="edit"
+  className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white"
+>
+  Edit profile
+</Link>
       </div>
 
       {/* Profile Header */}
