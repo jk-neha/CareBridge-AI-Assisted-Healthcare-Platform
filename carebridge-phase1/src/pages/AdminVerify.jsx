@@ -9,8 +9,8 @@ import api, { getErrorMessage, tokenStorage } from "../services/api";
 /*  Don't link to it from the public site, and remove or password-     */
 /*  gate it before sharing the live link widely.                       */
 /* ------------------------------------------------------------------ */
-const ADMIN_USERNAME = "admindemo";
-const ADMIN_PASSWORD = "admindemo";
+const ADMIN_USERNAME = "demoadmin";
+const ADMIN_PASSWORD = "demoadmin";
 
 export default function AdminVerify() {
   const [status, setStatus] = useState("logging-in"); // logging-in | ready | error
